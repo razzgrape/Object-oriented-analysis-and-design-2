@@ -1,0 +1,15 @@
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/bin/Debug/net10.0/with_pattern
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/bin/Debug/net10.0/with_pattern.deps.json
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/bin/Debug/net10.0/with_pattern.runtimeconfig.json
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/bin/Debug/net10.0/with_pattern.dll
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/bin/Debug/net10.0/with_pattern.pdb
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.AssemblyInfoInputs.cache
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.AssemblyInfo.cs
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.csproj.CoreCompileInputs.cache
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.sourcelink.json
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.dll
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/refint/with_pattern.dll
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.pdb
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/with_pattern.genruntimeconfig.cache
+/Users/maksimstarpeshtes/Documents/GitHub/Object-oriented-analysis-and-design-2/lab01/with_pattern/obj/Debug/net10.0/ref/with_pattern.dll
