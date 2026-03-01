@@ -6,19 +6,19 @@ namespace Store.NoPattern
     {
         public string BankName { get; set; } = "Сбербанк";
 
-        public void Pay(decimal amount)
+        public string Pay(decimal amount)
         {
-            Console.WriteLine($"[SBP] Оплата через {BankName} на сумму {amount:F2} руб.");
+            return $"Оплата через СБП ({BankName}) на сумму {amount:F2} ₽";
         }
     }
 
     public class PayPalPayment
     {
-        public string Email { get; set; } = "user@example.com";
+        public string Email { get; set; } = "store@example.com";
 
-        public void Pay(decimal amount)
+        public string Pay(decimal amount)
         {
-            Console.WriteLine($"[PayPal] Оплата через {Email} на сумму ${amount:F2}");
+            return $"PayPal payment via {Email}: ${amount:F2}";
         }
     }
 }

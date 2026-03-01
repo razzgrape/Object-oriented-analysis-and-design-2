@@ -8,6 +8,11 @@ namespace Store.NoPattern
         {
             return amount * TaxRate;
         }
+
+        public string GetDescription(decimal amount)
+        {
+            return $"НДС {TaxRate * 100}%: {Calculate(amount):F2} ₽";
+        }
     }
 
     public class USTaxCalculator
@@ -17,6 +22,11 @@ namespace Store.NoPattern
         public decimal Calculate(decimal amount)
         {
             return amount * TaxRate;
+        }
+
+        public string GetDescription(decimal amount)
+        {
+            return $"Sales Tax {TaxRate * 100}%: ${Calculate(amount):F2}";
         }
     }
 }

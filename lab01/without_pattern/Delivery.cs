@@ -4,19 +4,23 @@ namespace Store.NoPattern
     {
         public decimal Cost { get; set; } = 300;
 
-        public void Deliver(Order order)
+        public string Deliver(Order order)
         {
-            Console.WriteLine($"[Доставка РФ] Заказ #{order.Id} отправлен. Стоимость доставки: {Cost} руб.");
+            return $"Заказ #{order.Id} передан в СДЭК. Стоимость доставки: {Cost} ₽";
         }
+
+        public decimal GetCost() => Cost;
     }
 
     public class USDelivery
     {
         public decimal Cost { get; set; } = 20;
 
-        public void Deliver(Order order)
+        public string Deliver(Order order)
         {
-            Console.WriteLine($"[US Delivery] Order #{order.Id} shipped. Delivery cost: ${Cost}");
+            return $"Order #{order.Id} shipped via FedEx. Delivery cost: ${Cost}";
         }
+
+        public decimal GetCost() => Cost;
     }
 }

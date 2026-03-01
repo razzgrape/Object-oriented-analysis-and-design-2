@@ -1,26 +1,22 @@
 using Store.NoPattern;
 
-// --- Тестовый заказ ---
-var product1 = new Product { Id = 1, Name = "Ноутбук", Price = 80000 };
-var product2 = new Product { Id = 2, Name = "Мышь", Price = 2000 };
+var builder = WebApplication.CreateBuilder(args);
 
-var order = new Order
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCors(options =>
 {
-    Id = 42,
-    Items = new List<OrderItem>
+    options.AddPolicy("AllowReact", policy =>
     {
-        new OrderItem { Product = product1, Quantity = 1 },
-        new OrderItem { Product = product2, Quantity = 2 },
-    }
-};
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
-var service = new OrderService();
+var app = builder.Build();
 
-Console.WriteLine("=== Заказ для России ===");
-service.Checkout(order, StoreRegion.Russia);
-
-Console.WriteLine();
-
-Console.WriteLine("=== Заказ для США ===");
-service.Checkout(order, StoreRegion.USA);
-
+app.UseCors("AllowReact");
+app.MapControllers();
+app.Run();
