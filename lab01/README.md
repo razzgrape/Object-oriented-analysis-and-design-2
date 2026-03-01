@@ -1,1 +1,1 @@
-![Диаграмма классов](docs/diag_class.png)
+![Диаграмма классов](docs/diag_class1.png)
