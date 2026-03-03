@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.0">
   <diagram id="IGQEWgVHiXIHWolEdIEH" name="Страница-2">
-    <mxGraphModel dx="2221" dy="947" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2221" dy="993" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -188,15 +188,15 @@
           <mxGeometry height="26" width="160" y="60" as="geometry" />
         </mxCell>
         <mxCell id="y1j7bfP1uDrOy4XDmMb5-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="OrderService" vertex="1">
-          <mxGeometry height="52" width="305" x="827" y="236" as="geometry" />
+          <mxGeometry height="52" width="374" x="827" y="236" as="geometry" />
         </mxCell>
-        <mxCell id="y1j7bfP1uDrOy4XDmMb5-2" parent="y1j7bfP1uDrOy4XDmMb5-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Checkout(order: Order, factory: IStoreFactory): Real" vertex="1">
-          <mxGeometry height="26" width="305" y="26" as="geometry" />
+        <mxCell id="y1j7bfP1uDrOy4XDmMb5-2" parent="y1j7bfP1uDrOy4XDmMb5-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Checkout(order: Order, factory: IStoreFactory): CheckoutResult" vertex="1">
+          <mxGeometry height="26" width="374" y="26" as="geometry" />
         </mxCell>
         <mxCell id="uRrg6EVNKMVO7SFidGrx-1" edge="1" parent="1" source="rU3-SjIN_KF8JUnaWjGl-3" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="y1j7bfP1uDrOy4XDmMb5-1" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="980" y="151" />
+              <mxPoint x="1014" y="151" />
             </Array>
             <mxPoint x="881" y="141.41000000000003" as="sourcePoint" />
             <mxPoint x="1041" y="141.41000000000003" as="targetPoint" />
@@ -205,7 +205,7 @@
         <mxCell id="H0CeYp-DhGS7m2AvPIYx-1" edge="1" parent="1" source="YJKGf1G5mwX9ejGdBtY3-2" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.498;entryY=1.013;entryDx=0;entryDy=0;entryPerimeter=0;" target="y1j7bfP1uDrOy4XDmMb5-2" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <Array as="points">
-              <mxPoint x="979" y="352" />
+              <mxPoint x="1013" y="354" />
             </Array>
             <mxPoint x="600" y="369" as="sourcePoint" />
             <mxPoint x="811" y="369" as="targetPoint" />
@@ -349,12 +349,6 @@
             <mxPoint x="333" y="563" as="sourcePoint" />
             <mxPoint x="229" y="1000" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="wAmxpoR5doovidgaJ9y9-13" parent="1" style="text;whiteSpace=wrap;html=1;" value="Внутри Checkout происходит превращение списка товаров в завершённую сделку. Он выполняет алгоритм:&lt;br&gt;&lt;br&gt;Берёт промежуточный итог из Order.&lt;br&gt;&lt;br&gt;Просит фабрику создать калькулятор налогов и доставку.&lt;br&gt;&lt;br&gt;Считает финальную сумму: Итог = Сумма заказа + Налог + Доставка.&lt;br&gt;&lt;br&gt;Проводит оплату через IPayment, который тоже дала фабрика." vertex="1">
-          <mxGeometry height="166" width="550" x="1017" y="51" as="geometry" />
-        </mxCell>
-        <mxCell id="wAmxpoR5doovidgaJ9y9-14" parent="1" style="text;whiteSpace=wrap;html=1;" value="Так как в Checkout передаётся одна конкретная фабрика, метод гарантирует, что мы не используем российскую доставку с американскими налогами. Все объекты будут из одного&lt;div&gt;семейства&lt;/div&gt;" vertex="1">
-          <mxGeometry height="65" width="550" x="1131" y="221" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
