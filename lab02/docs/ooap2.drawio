@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.0">
+  <diagram name="Страница-1" id="hygAhMJysVcMcOoT0naW">
+    <mxGraphModel dx="2454" dy="1162" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gLMcapeDVgpExVIZIdF--2" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;«interface»&lt;/span&gt;&lt;div&gt;IPaymentSystem&lt;/div&gt;" vertex="1">
+          <mxGeometry height="76" width="340" x="185" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--3" parent="gLMcapeDVgpExVIZIdF--2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+processPayment(amount: Real, description: String): String" vertex="1">
+          <mxGeometry height="26" width="340" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SBPService" vertex="1">
+          <mxGeometry height="52" width="540" x="-470" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--7" parent="gLMcapeDVgpExVIZIdF--6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+transferByPhone(phone: String, amountKopecks: Real, bankID: String, message: String): String" vertex="1">
+          <mxGeometry height="26" width="540" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--10" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="YooAdapter" vertex="1">
+          <mxGeometry height="86" width="330" x="190" y="233" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--11" parent="gLMcapeDVgpExVIZIdF--10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-returnURL: String = &quot;https://myshop.ru/thanks&quot;" vertex="1">
+          <mxGeometry height="26" width="330" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--12" parent="gLMcapeDVgpExVIZIdF--10" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="330" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--13" parent="gLMcapeDVgpExVIZIdF--10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+processPayment(amount:Real, description: String): String" vertex="1">
+          <mxGeometry height="26" width="330" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--14" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="CryptoAdapter" vertex="1">
+          <mxGeometry height="112" width="330" x="770" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--15" parent="gLMcapeDVgpExVIZIdF--14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-wallet: String = &quot;bc1qxy2kgdygjrsqtzq2n...&quot;" vertex="1">
+          <mxGeometry height="26" width="330" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--39" parent="gLMcapeDVgpExVIZIdF--14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-btcRate: Real = 10000000.0" vertex="1">
+          <mxGeometry height="26" width="330" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--16" parent="gLMcapeDVgpExVIZIdF--14" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="330" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--17" parent="gLMcapeDVgpExVIZIdF--14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+processPayment(amount:Real, description: String): String" vertex="1">
+          <mxGeometry height="26" width="330" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--18" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SBPAdapter" vertex="1">
+          <mxGeometry height="112" width="340" x="-410" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--19" parent="gLMcapeDVgpExVIZIdF--18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-phone: String = &#39;79998887776&#39;" vertex="1">
+          <mxGeometry height="26" width="340" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--38" parent="gLMcapeDVgpExVIZIdF--18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="-bankID: String = &#39;100000000111&#39;" vertex="1">
+          <mxGeometry height="26" width="340" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--20" parent="gLMcapeDVgpExVIZIdF--18" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="340" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--21" parent="gLMcapeDVgpExVIZIdF--18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+processPayment(amount:Real, description: String): String" vertex="1">
+          <mxGeometry height="26" width="340" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--26" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="CryptoGateway" vertex="1">
+          <mxGeometry height="52" width="570" x="600" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--27" parent="gLMcapeDVgpExVIZIdF--26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ sendCrypto(walletAddress: String, amountBTC: Real, confirmations: Integer, network: String): String" vertex="1">
+          <mxGeometry height="26" width="570" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--40" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="YooKassaClient" vertex="1">
+          <mxGeometry height="52" width="730" x="-10" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--41" parent="gLMcapeDVgpExVIZIdF--40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+createPayment(idempotenceKey: String, amountKopecks: Integer, description: String, returnUrl: String, autoCapture: Boolean): String" vertex="1">
+          <mxGeometry height="26" width="730" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--44" edge="1" parent="1" source="gLMcapeDVgpExVIZIdF--10" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0.498;entryY=1.141;entryDx=0;entryDy=0;entryPerimeter=0;" target="gLMcapeDVgpExVIZIdF--3" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="270" y="360" as="sourcePoint" />
+            <mxPoint x="430" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--45" edge="1" parent="1" source="gLMcapeDVgpExVIZIdF--18" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="-240" y="170" />
+            </Array>
+            <mxPoint x="-130" y="170" as="sourcePoint" />
+            <mxPoint x="360" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--46" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gLMcapeDVgpExVIZIdF--14" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="935" y="170" />
+            </Array>
+            <mxPoint x="360" y="170" as="sourcePoint" />
+            <mxPoint x="640" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--47" edge="1" parent="1" source="gLMcapeDVgpExVIZIdF--21" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.487;exitY=1.187;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.417;entryY=0.049;entryDx=0;entryDy=0;entryPerimeter=0;" target="gLMcapeDVgpExVIZIdF--6" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="100" y="390" as="sourcePoint" />
+            <mxPoint x="260" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--48" edge="1" parent="1" source="gLMcapeDVgpExVIZIdF--13" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0.506;exitY=1.192;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gLMcapeDVgpExVIZIdF--40" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="300" y="448.57" as="sourcePoint" />
+            <mxPoint x="460" y="448.57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gLMcapeDVgpExVIZIdF--49" edge="1" parent="1" source="gLMcapeDVgpExVIZIdF--17" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;entryX=0.591;entryY=0.192;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.496;exitY=1.047;exitDx=0;exitDy=0;exitPerimeter=0;" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="934" y="340" as="sourcePoint" />
+            <mxPoint x="934.2900000000003" y="450.0039999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
