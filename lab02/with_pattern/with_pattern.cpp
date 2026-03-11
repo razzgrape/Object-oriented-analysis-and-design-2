@@ -31,7 +31,7 @@ public:
 
 class YooKassaClient {
 private:
-    int balanceKopecks = 3000000; // 30 000 руб. в копейках
+    int balanceKopecks = 3000000;
 public:
     std::string createPayment(const std::string& idempotenceKey,
                                int amountKopecks,
@@ -56,7 +56,7 @@ public:
 
 class CryptoGateway {
 private:
-    double balanceBTC = 0.01; // 0.01 BTC
+    double balanceBTC = 0.01; 
 public:
     std::string sendCrypto(const std::string& walletAddress,
                             double amountBTC,
@@ -88,7 +88,7 @@ public:
 class SbpAdapter : public IPaymentSystem {
 private:
     SbpService sbpService;
-    std::string phone = "+79991234567";
+    std::string phone = "+79998887776";
     std::string bankId = "100000000111";
 public:
     std::string processPayment(double amount, const std::string& description) override {
