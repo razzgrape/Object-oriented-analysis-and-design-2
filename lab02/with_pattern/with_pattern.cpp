@@ -1,13 +1,15 @@
 #include "httplib.h"
 #include <iostream>
 #include <string>
+#include <memory>
 #include <ctime>
+#include <vector>
 #include <iomanip>
 #include <sstream>
 
 class SbpService {
 private:
-    double balanceKopecks = 5000000;
+    double balanceKopecks = 5000000; 
 public:
     std::string transferByPhone(const std::string& phone,
                                  long amountKopecks,
@@ -29,7 +31,7 @@ public:
 
 class YooKassaClient {
 private:
-    int balanceKopecks = 3000000;
+    int balanceKopecks = 3000000; // 30 000 руб. в копейках
 public:
     std::string createPayment(const std::string& idempotenceKey,
                                int amountKopecks,
@@ -54,7 +56,7 @@ public:
 
 class CryptoGateway {
 private:
-    double balanceBTC = 0.01;
+    double balanceBTC = 0.01; // 0.01 BTC
 public:
     std::string sendCrypto(const std::string& walletAddress,
                             double amountBTC,
@@ -75,75 +77,54 @@ public:
     double getBalance(double rate) const { return balanceBTC * rate; }
 };
 
-enum class PaymentMethod { SBP, YooKassa, Crypto };
-
-class PaymentService {
-private:
-    SbpService sbp;
-    YooKassaClient kassa;
-    CryptoGateway crypto;
-
-    std::string sbpPhone = "+79991234567";
-    std::string sbpBankId = "100000000111";
-    std::string kassaReturnUrl = "https://myshop.ru/thanks";
-    std::string cryptoWallet = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh";
-    double btcRate = 10000000.0;
-
+class IPaymentSystem {
 public:
-    std::string pay(double amount, const std::string& description, PaymentMethod method) {
-        switch (method) {
-            case PaymentMethod::SBP: {
-                long kopecks = static_cast<long>(amount * 100);
-                return sbp.transferByPhone(sbpPhone, kopecks, sbpBankId, description);
-            }
-            case PaymentMethod::YooKassa: {
-                int kopecks = static_cast<int>(amount * 100);
-                std::string key = "order_" + std::to_string(time(nullptr));
-                return kassa.createPayment(key, kopecks, description, kassaReturnUrl, true);
-            }
-            case PaymentMethod::Crypto: {
-                double btc = amount / btcRate;
-                return crypto.sendCrypto(cryptoWallet, btc, 3, "mainnet");
-            }
-            default:
-                return "Ошибка: неизвестный метод оплаты";
-        }
+    virtual std::string processPayment(double amount, const std::string& description) = 0;
+    virtual double getBalance() const = 0;
+    virtual std::string getName() const = 0;
+    virtual ~IPaymentSystem() = default;
+};
+
+class SbpAdapter : public IPaymentSystem {
+private:
+    SbpService sbpService;
+    std::string phone = "+79991234567";
+    std::string bankId = "100000000111";
+public:
+    std::string processPayment(double amount, const std::string& description) override {
+        long kopecks = static_cast<long>(amount * 100);
+        return sbpService.transferByPhone(phone, kopecks, bankId, description);
     }
+    double getBalance() const override { return sbpService.getBalance(); }
+    std::string getName() const override { return "СБП"; }
+};
 
-    // БЕЗ ПАТТЕРНА: отдельный switch для получения баланса каждого SDK
-    double getBalance(PaymentMethod method) const {
-        switch (method) {
-            case PaymentMethod::SBP: return sbp.getBalance();
-            case PaymentMethod::YooKassa: return kassa.getBalance();
-            case PaymentMethod::Crypto: return crypto.getBalance(10000000.0);
-            default: return 0;
-        }
-    }
-
-    // БЕЗ ПАТТЕРНА: ещё один switch для оплаты со всех
-    std::string payAll(double amount, const std::string& description) {
-        double share = amount / 3.0;
-        std::string results = "[";
-
-        long kopecks = static_cast<long>(share * 100);
-        std::string r1 = sbp.transferByPhone(sbpPhone, kopecks, sbpBankId, description);
-        results += "\"" + r1 + "\", ";
-
-        int kopecks2 = static_cast<int>(share * 100);
+class YooKassaAdapter : public IPaymentSystem {
+private:
+    YooKassaClient kassaClient;
+    std::string returnUrl = "https://myshop.ru/thanks";
+public:
+    std::string processPayment(double amount, const std::string& description) override {
+        int kopecks = static_cast<int>(amount * 100);
         std::string key = "order_" + std::to_string(time(nullptr));
-        std::string r2 = kassa.createPayment(key, kopecks2, description, kassaReturnUrl, true);
-        results += "\"" + r2 + "\", ";
-
-        double btc = share / btcRate;
-        std::string r3 = crypto.sendCrypto(cryptoWallet, btc, 3, "mainnet");
-        results += "\"" + r3 + "\"]";
-
-        return results;
+        return kassaClient.createPayment(key, kopecks, description, returnUrl, true);
     }
+    double getBalance() const override { return kassaClient.getBalance(); }
+    std::string getName() const override { return "ЮKassa"; }
+};
 
-    double getSbpBalance() const { return sbp.getBalance(); }
-    double getKassaBalance() const { return kassa.getBalance(); }
-    double getCryptoBalance() const { return crypto.getBalance(10000000.0); }
+class CryptoAdapter : public IPaymentSystem {
+private:
+    CryptoGateway cryptoGateway;
+    std::string wallet = "bc1qxy2kgdygjrsqtzq2n";
+    double btcRate = 10000000.0;
+public:
+    std::string processPayment(double amount, const std::string& description) override {
+        double btc = amount / btcRate;
+        return cryptoGateway.sendCrypto(wallet, btc, 3, "mainnet");
+    }
+    double getBalance() const override { return cryptoGateway.getBalance(10000000.0); }
+    std::string getName() const override { return "Crypto"; }
 };
 
 std::string getJsonString(const std::string& json, const std::string& key) {
@@ -180,22 +161,28 @@ std::string fmt(double val) {
     return oss.str();
 }
 
+std::string balancesJson(IPaymentSystem* sbp, IPaymentSystem* kassa, IPaymentSystem* crypto) {
+    return "{\"sbp\": " + fmt(sbp->getBalance()) +
+           ", \"yookassa\": " + fmt(kassa->getBalance()) +
+           ", \"crypto\": " + fmt(crypto->getBalance()) + "}";
+}
+
 int main() {
     httplib::Server svr;
-    PaymentService service;
+
+    auto sbp = std::make_shared<SbpAdapter>();
+    auto kassa = std::make_shared<YooKassaAdapter>();
+    auto crypto = std::make_shared<CryptoAdapter>();
+
+    std::vector<std::shared_ptr<IPaymentSystem>> allPayments = {sbp, kassa, crypto};
 
     std::cout << "=== Начальные балансы ===" << std::endl;
-    std::cout << "СБП: " << fmt(service.getSbpBalance()) << " руб." << std::endl;
-    std::cout << "ЮKassa: " << fmt(service.getKassaBalance()) << " руб." << std::endl;
-    std::cout << "Crypto: " << fmt(service.getCryptoBalance()) << " руб." << std::endl;
+    for (auto& p : allPayments) {
+        std::cout << p->getName() << ": " << fmt(p->getBalance()) << " руб." << std::endl;
+    }
     std::cout << "=========================" << std::endl << std::endl;
 
-    auto getBalancesJson = [&]() {
-        return "{\"sbp\": " + fmt(service.getSbpBalance()) +
-               ", \"yookassa\": " + fmt(service.getKassaBalance()) +
-               ", \"crypto\": " + fmt(service.getCryptoBalance()) + "}";
-    };
-
+    // Оплата одним способом
     svr.Post("/api/pay", [&](const httplib::Request& req, httplib::Response& res) {
         res.set_header("Access-Control-Allow-Origin", "http://localhost:5173");
         res.set_header("Access-Control-Allow-Headers", "Content-Type");
@@ -204,41 +191,50 @@ int main() {
         double amount = getJsonNumber(req.body, "amount");
         std::string description = getJsonString(req.body, "description");
 
-        PaymentMethod pm;
-        if (method == "sbp") pm = PaymentMethod::SBP;
-        else if (method == "yookassa") pm = PaymentMethod::YooKassa;
-        else if (method == "crypto") pm = PaymentMethod::Crypto;
+        IPaymentSystem* payment = nullptr;
+        if (method == "sbp") payment = sbp.get();
+        else if (method == "yookassa") payment = kassa.get();
+        else if (method == "crypto") payment = crypto.get();
         else {
             res.set_content("{\"error\": \"Unknown method\"}", "application/json");
             return;
         }
 
-        std::string result = service.pay(amount, description, pm);
-        std::string json = "{\"message\": \"" + result + "\", \"balances\": " + getBalancesJson() + "}";
+        std::string result = payment->processPayment(amount, description);
+        std::string json = "{\"message\": \"" + result + "\", \"balances\": " +
+                           balancesJson(sbp.get(), kassa.get(), crypto.get()) + "}";
         res.set_content(json, "application/json");
     });
-
+    // Списать с трех способов
     svr.Post("/api/pay-all", [&](const httplib::Request& req, httplib::Response& res) {
         res.set_header("Access-Control-Allow-Origin", "http://localhost:5173");
         res.set_header("Access-Control-Allow-Headers", "Content-Type");
 
         double amount = getJsonNumber(req.body, "amount");
         std::string description = getJsonString(req.body, "description");
+        double share = amount / 3.0;
 
         std::cout << std::endl << "=== Оплата со всех систем ===" << std::endl;
-        std::cout << "Сумма: " << fmt(amount) << " руб., по " << fmt(amount / 3.0) << " руб. с каждой" << std::endl;
+        std::cout << "Сумма: " << fmt(amount) << " руб., по " << fmt(share) << " руб. с каждой" << std::endl;
 
-        std::string messages = service.payAll(amount, description);
+        std::string allMessages = "[";
+        for (size_t i = 0; i < allPayments.size(); i++) {
+            std::string result = allPayments[i]->processPayment(share, description);
+            if (i > 0) allMessages += ", ";
+            allMessages += "\"" + result + "\"";
+        }
+        allMessages += "]";
 
         std::cout << "==============================" << std::endl << std::endl;
 
-        std::string json = "{\"messages\": " + messages + ", \"balances\": " + getBalancesJson() + "}";
+        std::string json = "{\"messages\": " + allMessages + ", \"balances\": " +
+                           balancesJson(sbp.get(), kassa.get(), crypto.get()) + "}";
         res.set_content(json, "application/json");
     });
 
     svr.Get("/api/balances", [&](const httplib::Request&, httplib::Response& res) {
         res.set_header("Access-Control-Allow-Origin", "http://localhost:5173");
-        res.set_content(getBalancesJson(), "application/json");
+        res.set_content(balancesJson(sbp.get(), kassa.get(), crypto.get()), "application/json");
     });
 
     auto corsHandler = [](const httplib::Request&, httplib::Response& res) {
