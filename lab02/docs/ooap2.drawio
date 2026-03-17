@@ -178,7 +178,7 @@
         <mxCell id="LZyQXPCERSgrcPRtuyno-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-kassaClient" vertex="1">
           <mxGeometry height="30" width="87" x="360" y="555" as="geometry" />
         </mxCell>
-        <mxCell id="LZyQXPCERSgrcPRtuyno-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-cryproGateway" vertex="1">
+        <mxCell id="LZyQXPCERSgrcPRtuyno-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-cryptoGateway" vertex="1">
           <mxGeometry height="30" width="103" x="931" y="420" as="geometry" />
         </mxCell>
       </root>
