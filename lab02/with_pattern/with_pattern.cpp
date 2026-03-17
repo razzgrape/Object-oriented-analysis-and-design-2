@@ -73,7 +73,6 @@ public:
                " BTC на " + walletAddress +
                " (" + network + ", " + std::to_string(confirmations) + " подтв.)";
     }
-    double getBalanceBTC() const { return balanceBTC; }
     double getBalance(double rate) const { return balanceBTC * rate; }
 };
 

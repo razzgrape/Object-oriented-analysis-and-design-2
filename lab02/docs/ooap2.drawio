@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.6.1">
   <diagram name="Страница-1" id="hygAhMJysVcMcOoT0naW">
-    <mxGraphModel dx="2221" dy="2165" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2454" dy="2331" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -103,7 +103,7 @@
         <mxCell id="ZfeiBZdxQP3JlggMF4mh-13" parent="gLMcapeDVgpExVIZIdF--26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ sendCrypto(walletAddress: String, amountBTC: Real, confirmations: Integer, network: String): String" vertex="1">
           <mxGeometry height="26" width="570" y="52" as="geometry" />
         </mxCell>
-        <mxCell id="ZfeiBZdxQP3JlggMF4mh-15" parent="gLMcapeDVgpExVIZIdF--26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+getBalance(): Real" vertex="1">
+        <mxCell id="ZfeiBZdxQP3JlggMF4mh-15" parent="gLMcapeDVgpExVIZIdF--26" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+getBalance(rate: Real): Real" vertex="1">
           <mxGeometry height="26" width="570" y="78" as="geometry" />
         </mxCell>
         <mxCell id="ZfeiBZdxQP3JlggMF4mh-14" edge="1" parent="gLMcapeDVgpExVIZIdF--26" source="ZfeiBZdxQP3JlggMF4mh-13" style="endArrow=none;html=1;rounded=0;exitX=0.001;exitY=-0.035;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.003;entryY=-0.035;entryDx=0;entryDy=0;entryPerimeter=0;" target="ZfeiBZdxQP3JlggMF4mh-13" value="">
@@ -171,6 +171,15 @@
             <mxPoint x="934" y="384" as="sourcePoint" />
             <mxPoint x="934.2900000000003" y="450.0039999999999" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="LZyQXPCERSgrcPRtuyno-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-sbpService" vertex="1">
+          <mxGeometry height="30" width="92" x="-249" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="LZyQXPCERSgrcPRtuyno-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-kassaClient" vertex="1">
+          <mxGeometry height="30" width="87" x="360" y="555" as="geometry" />
+        </mxCell>
+        <mxCell id="LZyQXPCERSgrcPRtuyno-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="-cryproGateway" vertex="1">
+          <mxGeometry height="30" width="103" x="931" y="420" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
