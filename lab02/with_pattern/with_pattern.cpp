@@ -98,7 +98,7 @@ public:
     std::string getName() const override { return "СБП"; }
 };
 
-class YooKassaAdapter : public IPaymentSystem {
+class YooAdapter : public IPaymentSystem {
 private:
     YooKassaClient kassaClient;
     std::string returnUrl = "https://myshop.ru/thanks";
@@ -170,7 +170,7 @@ int main() {
     httplib::Server svr;
 
     auto sbp = std::make_shared<SbpAdapter>();
-    auto kassa = std::make_shared<YooKassaAdapter>();
+    auto kassa = std::make_shared<YooAdapter>();
     auto crypto = std::make_shared<CryptoAdapter>();
 
     std::vector<std::shared_ptr<IPaymentSystem>> allPayments = {sbp, kassa, crypto};
