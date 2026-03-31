@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a26;
+            --bg-hover: #22223a;
+            --accent: #7c5cfc;
+            --accent-glow: rgba(124, 92, 252, 0.3);
+            --accent-dim: #5a3fd4;
+            --text-primary: #f0eef6;
+            --text-secondary: #8886a0;
+            --text-dim: #55536b;
+            --border: #2a2a3e;
+            --success: #4ade80;
+            --danger: #f87171;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Background effect ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(124, 92, 252, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(124, 92, 252, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .app {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .header h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .header .playlist-name {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* ── Player Card ── */
+        .player {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 32px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.5;
+        }
+
+        /* ── Cover ── */
+        .cover-container {
+            flex-shrink: 0;
+            width: 220px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-card);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .cover-container.playing {
+            box-shadow: 0 8px 40px var(--accent-glow);
+        }
+
+        .cover-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .cover-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            background: linear-gradient(135deg, var(--bg-card) 0%, #2a2a44 100%);
+        }
+
+        /* ── Track Info ── */
+        .track-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .track-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-artist {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .track-duration {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 28px;
+        }
+
+        .track-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
+
+        /* ── Controls ── */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .btn:hover {
+            background: var(--bg-hover);
+            transform: scale(1.08);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-sm {
+            width: 48px;
+            height: 48px;
+        }
+
+        .btn-play {
+            width: 64px;
+            height: 64px;
+            background: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-play:hover {
+            background: var(--accent-dim);
+            box-shadow: 0 4px 28px var(--accent-glow);
+        }
+
+        .btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .btn-play svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* ── Mode Switcher ── */
+        .modes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mode-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .mode-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 2px 12px var(--accent-glow);
+        }
+
+        /* ── Track List ── */
+        .tracklist {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .tracklist-header {
+            padding: 20px 24px 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .track-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 24px;
+            gap: 16px;
+            transition: background 0.15s;
+            cursor: default;
+        }
+
+        .track-row:hover {
+            background: var(--bg-hover);
+        }
+
+        .track-row.active {
+            background: rgba(124, 92, 252, 0.08);
+        }
+
+        .track-row-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            color: var(--text-dim);
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .track-row.active .track-row-num {
+            color: var(--accent);
+        }
+
+        .track-row-cover {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-card);
+            flex-shrink: 0;
+        }
+
+        .track-row-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .track-row-cover-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            background: linear-gradient(135deg, var(--bg-card), #2a2a44);
+        }
+
+        .track-row-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .track-row-title {
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .track-row.active .track-row-title {
+            color: var(--accent);
+        }
+
+        .track-row-artist {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .track-row-duration {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            flex-shrink: 0;
+        }
+
+        /* ── Playing indicator ── */
+        .playing-indicator {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+
+        .playing-indicator span {
+            width: 3px;
+            background: var(--accent);
+            border-radius: 1px;
+            animation: bars 0.8s ease-in-out infinite alternate;
+        }
+
+        .playing-indicator span:nth-child(1) { height: 40%; animation-delay: 0s; }
+        .playing-indicator span:nth-child(2) { height: 70%; animation-delay: 0.2s; }
+        .playing-indicator span:nth-child(3) { height: 50%; animation-delay: 0.4s; }
+
+        @keyframes bars {
+            to { height: 100%; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .player {
+                flex-direction: column;
+                padding: 24px;
+                gap: 24px;
+                text-align: center;
+            }
+            .cover-container { width: 180px; height: 180px; }
+            .controls { justify-content: center; }
+            .modes { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback } = React;
+
+        const API = "";
+
+        // ── SVG Icons ──
+        const Icons = {
+            prev: <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>,
+            play: <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>,
+            pause: <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>,
+            next: <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>,
+        };
+
+        function CoverImage({ src, size = "large" }) {
+            const [error, setError] = useState(false);
+
+            useEffect(() => { setError(false); }, [src]);
+
+            if (!src || error) {
+                const cls = size === "large" ? "cover-placeholder" : "track-row-cover-placeholder";
+                return <div className={cls}>♫</div>;
+            }
+
+            return (
+                <img
+                    src={`/covers/${src}`}
+                    alt="cover"
+                    onError={() => setError(true)}
+                />
+            );
+        }
+
+        function App() {
+            const [state, setState] = useState(null);
+            const [mode, setMode] = useState("sequential");
+            const [loading, setLoading] = useState(true);
+
+            const fetchState = useCallback(async () => {
+                const res = await fetch(`${API}/api/state`);
+                const data = await res.json();
+                setState(data);
+                setLoading(false);
+            }, []);
+
+            useEffect(() => { fetchState(); }, [fetchState]);
+
+            const action = async (url, method = "POST") => {
+                const res = await fetch(`${API}${url}`, { method });
+                const data = await res.json();
+                setState(data);
+            };
+
+            const switchMode = async (m) => {
+                setMode(m);
+                await action(`/api/mode/${m}`);
+            };
+
+            if (loading || !state) {
+                return <div className="app" style={{ textAlign: "center", paddingTop: 100, color: "var(--text-dim)" }}>Загрузка...</div>;
+            }
+
+            const { track, index, total, has_next, has_previous, is_playing, playlist_name, tracks } = state;
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <h1>Iterator Pattern</h1>
+                        <div className="playlist-name">{playlist_name}</div>
+                    </div>
+
+                    {/* Player */}
+                    <div className="player">
+                        <div className={`cover-container ${is_playing ? "playing" : ""}`}>
+                            <CoverImage src={track.cover} size="large" />
+                        </div>
+                        <div className="track-info">
+                            <div className="track-title">{track.title}</div>
+                            <div className="track-artist">{track.artist}</div>
+                            <div className="track-duration">{track.duration_str}</div>
+                            <div className="track-counter">{index + 1} / {total}</div>
+
+                            <div className="controls">
+                                <button
+                                    className="btn btn-sm"
+                                    disabled={!has_previous}
+                                    onClick={() => action("/api/previous")}
+                                >
+                                    {Icons.prev}
+                                </button>
+                                <button
+                                    className="btn btn-play"
+                                    onClick={() => action("/api/play")}
+                                >
+                                    {is_playing ? Icons.pause : Icons.play}
+                                </button>
+                                <button
+                                    className="btn btn-sm"
+                                    disabled={!has_next}
+                                    onClick={() => action("/api/next")}
+                                >
+                                    {Icons.next}
+                                </button>
+                            </div>
+
+                            <div className="modes">
+                                {["sequential", "reverse", "shuffle"].map(m => (
+                                    <button
+                                        key={m}
+                                        className={`mode-btn ${mode === m ? "active" : ""}`}
+                                        onClick={() => switchMode(m)}
+                                    >
+                                        {m}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Tracklist */}
+                    <div className="tracklist">
+                        <div className="tracklist-header">Треки</div>
+                        {tracks.map((t, i) => (
+                            <div key={i} className={`track-row ${t.title === track.title && t.artist === track.artist ? "active" : ""}`}>
+                                <div className="track-row-num">
+                                    {t.title === track.title && t.artist === track.artist && is_playing ? (
+                                        <div className="playing-indicator">
+                                            <span/><span/><span/>
+                                        </div>
+                                    ) : (
+                                        i + 1
+                                    )}
+                                </div>
+                                <div className="track-row-cover">
+                                    <CoverImage src={t.cover} size="small" />
+                                </div>
+                                <div className="track-row-info">
+                                    <div className="track-row-title">{t.title}</div>
+                                    <div className="track-row-artist">{t.artist}</div>
+                                </div>
+                                <div className="track-row-duration">{t.duration_str}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+</body>
+</html>
